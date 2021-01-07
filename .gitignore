@@ -1,6 +1,6 @@
-# Dev specific
-*.html
+# Project specific
 notebook-downloads/
+*.sqlite
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

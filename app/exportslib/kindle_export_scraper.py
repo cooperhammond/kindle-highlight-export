@@ -1,17 +1,14 @@
 from bs4 import BeautifulSoup
 
-def get_formatted_highlights(file_loc):
-
+def get_parsed_highlight_export(file_loc):
     file = open(file_loc, 'r')
     html = file.read()
 
     soup = BeautifulSoup(html, 'html.parser')
 
-    string = ""
-
     notes = {}
     highlight_headings = []
-    hightlight_texts = []
+    highlight_texts = []
 
     highlightIndex = 0
     for div in soup.find_all('div'):
@@ -27,13 +24,17 @@ def get_formatted_highlights(file_loc):
             if highlightIndex-1 in notes:
                 notes[highlightIndex-1] = text
             else:
-                hightlight_texts.append(text)
+                highlight_texts.append(text)
             highlightIndex += 1
-        
-    string = ''
+    
+    return notes, highlight_headings, highlight_texts
 
-    for i in range(0, len(hightlight_texts)):
-        string += hightlight_texts[i]
+def format_highlight_export(notes, highlight_headings, highlight_texts):
+
+    string = ""
+
+    for i in range(0, len(highlight_texts)):
+        string += highlight_texts[i]
         string += " ("
         string += highlight_headings[i]
         string += ")\n"
@@ -43,6 +44,3 @@ def get_formatted_highlights(file_loc):
             string += "\n"
 
     return string
-
-import pyperclip
-pyperclip.copy(get_formatted_highlights("notebook-downloads/Unsong - Notebook.html"))

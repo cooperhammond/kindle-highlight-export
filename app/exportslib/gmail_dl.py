@@ -5,7 +5,7 @@ import traceback
 from imbox import Imbox
 
 
-def retrieve_kindle_highlights_files(username, password, dl_directory):
+def retrieve_kindle_highlight_files(username, password, dl_directory):
 
     file_locations = []
 
