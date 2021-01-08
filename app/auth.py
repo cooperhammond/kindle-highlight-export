@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
 from . import db
 
+
 auth = Blueprint('auth', __name__)
 
 
@@ -22,11 +23,11 @@ def login_post():
     user = User.query.filter_by(email=email).first()
 
     if not user or not check_password_hash(user.password, password):
-        flash("Please check you login details and try again.")
+        flash("Please check your login details and try again.")
         return redirect(url_for('auth.login')) # reload page if login doesn't work
 
     login_user(user, remember=remember)
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('main.index'))
 
 
 @auth.route('/signup')

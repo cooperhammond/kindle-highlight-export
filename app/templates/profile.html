@@ -1,7 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Welcome, {{ name }}!
-</h1>
+
+<div class="content block">
+    <h1 class="title">
+        Welcome, {{ name }}
+    </h1>
+
+    <div class="content block is-large">
+        This program works by downloading Kindle export files from a gmail account.
+        While you can use your personal gmail account for this, I would recommend against it as you will be 
+        disabling a few security features in it. To get going, follow the instructions below:
+        <ol type="1">
+            <li>
+                Make a new Gmail account (don't use your normal password): 
+                <a target="_blank" href="https://accounts.google.com/SignUp"><code>https://accounts.google.com/SignUp</code></a>
+            </li>
+            <li>
+                Visit <a target="_blank" href="https://myaccount.google.com/lesssecureapps"><code>https://myaccount.google.com/lesssecureapps</code></a>
+                while signed into your new account and flip the switch to enable less secure apps.
+            </li>
+            <li>
+                Visit <a target="_blank" href="https://mail.google.com/mail/u/1/#settings/fwdandpop"><code>https://mail.google.com/mail/u/1/#settings/fwdandpop</code></a>
+                with your new account and enable IMAP access.
+            </li>
+            <li>Enter your account info below and hit confirm.</li>
+        </ol>
+        If your account is confirmed, you're good to go, head to <a href="/"><code>Highlights</code></a> and start copy-pasting!
+    </div>
+</div>
+
+<div class="box column is-4 is-offset-4">
+    
+    <div class="content is-large">Gmail Account</div>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/profile/updategmail">
+        <div class="field">
+            <div class="control">
+                <input class="input is-large" type="email" name="email" placeholder="Your Gmail email" value="{{ gmail_email }}">
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <input class="input is-large" type="password" name="password" placeholder="Your Gmail password">
+            </div>
+        </div>
+
+        <button class="button is-block is-info is-large is-fullwidth">Confirm Login Info</button>
+    </form>
+</div>
+
 {% endblock %}

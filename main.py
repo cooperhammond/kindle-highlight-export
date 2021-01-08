@@ -25,7 +25,10 @@ def main():
     #     formatted_highlights.append(get_formatted_highlights(file_loc))
 
     app = create_app()
+    app.debug = True
     server = Server(app.wsgi_app)
+    server.watch('app/templates/*.html')
+    server.watch('app/static/css/*.css')
     server.serve()
 
 
