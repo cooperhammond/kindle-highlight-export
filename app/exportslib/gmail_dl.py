@@ -1,8 +1,25 @@
 import os
 import sys
 import traceback
+import imaplib
 
 from imbox import Imbox
+
+
+def test_gmail_login(username, password):
+    try:
+        inbox = Imbox(
+            'imap.gmail.com',
+            username=username,
+            password=password,
+            ssl=True,
+            ssl_context=None,
+            starttls=False
+        )
+        inbox.logout()
+        return True
+    except imaplib.IMAP4.error:
+        return False
 
 
 def retrieve_kindle_highlight_files(username, password, dl_directory):
